@@ -1,0 +1,107 @@
+4.0.0
+https://github.com/CodyTolene/pip-boy-3000a-holotapes/pull/TODO
+- Port to the new Pip-Boy 3000a device.
+
+3.1.1
+https://github.com/CodyTolene/pip-boy-3000-mk-v-apps/pull/1
+- Simplify music directory handling by switching from the `music` property to the `files` array.
+
+3.1.0
+https://github.com/CodyTolene/pip-boy-apps/pull/40
+- Add a few optimizations for block rendering:
+  - Add new block sprite to replace the more complex manually drawn 3D blocks.
+  - The new block sprite also looks better in a 3D sense, so win-win!
+  - Using the block sprite also fixes the music skipping when blocks were first drawn previously.
+  - Load nuke & block images into memory for resuse on app initialization.
+- Fix recursion issue in music playback. Thanks [Theeohn](https://github.com/Theeohn) for the report!
+- Add center pivot for I piece rotation. Thanks [Theeohn](https://github.com/Theeohn) for the suggestion!
+
+3.0.0
+https://github.com/CodyTolene/pip-boy-apps/pull/39
+- Optimize the game logic and reduce memory footprint:
+  - Remove ghost piece/drop preview.
+  - Remove block type selector.
+- Style blocks to be 3D so they're easier to see.
+- Restyle nuke image to be a bit more 3D looking.
+
+2.6.0
+https://github.com/CodyTolene/pip-boy-apps/pull/38
+- Clear memory before the game starts to prevent loading issues.
+
+2.5.2
+https://github.com/CodyTolene/pip-boy-apps/pull/30
+- Patch the file uploader script fixing the wav file upload issue.
+
+2.5.1
+https://github.com/CodyTolene/pip-boy-apps/pull/30
+- Add nested directory support for app and game files.
+  - Games can now have their own directories for assets to keep things organized.
+  - This fixes the issue of Piptris not loading (when all apps are updated).
+- Add new songs "Whimsical", "Electro Swing", and "Big Band Swing" to go with the existing "Symphony" song.
+- Songs are now optional and can be toggled on/off before installation.
+
+2.5.0
+https://github.com/CodyTolene/pip-boy-apps/pull/29
+- Add a new block type, "NUKE":
+  - Clears a 5x5 area in the playfield where dropped.
+  - Each block cleared by the nuke gives the player 10 points.
+  - Gravity is applied to the entire playfield, all blocks fall down.
+- Reduce the size of the score displays on the start and game over screens.
+
+2.4.0
+https://github.com/CodyTolene/pip-boy-apps/pull/27
+- Add ghost block, drop preview.
+- Add ghost block toggle to start screen & game over screen.
+- Add block type selector to game over screen (previously only on start screen).
+- Add high score tracking.
+- Add high score display to start (when high score > 0) and game over screen.
+
+2.3.1
+- Quick patch to "Level" number display clearing.
+
+2.3.0
+- Decrease knob debounce time to 30ms (from 100ms) for more responsive controls.
+- Pip-Boy theme color support.
+- Move next block to the right side of the screen and the score to the bottom right.
+- Increase the play area to full screen, a 33% size increase overall.
+- Add difficulty scaling.
+- Add "Level" and "Lines" stats to the game over screen.
+
+2.2.1
+https://github.com/CodyTolene/pip-boy-apps/pull/12
+- Update torch button (top right) to toggle screen brightness when pressed.
+- Update power button (bot right) to restart the device when pressed.
+
+2.2.0
+https://github.com/thewandcompany/pip-boy/pull/5
+- Update app structure to use the new Pip-Boy Mod Tool workflow.
+
+2.1.0
+https://github.com/CodyTolene/pip-apps/pull/66
+- Add new block type (solid, hollow) selector to the start menu.
+- Fix bug of line count not resetting when starting a new game.
+
+2.0.0
+https://github.com/CodyTolene/pip-apps/pull/64
+- Complete revamp of Piptris with better rendering and more responsiveness.
+
+1.1.2
+https://github.com/CodyTolene/pip-apps/pull/60
+- Clean up, further refactoring and optimization of the code.
+
+1.1.1
+https://github.com/CodyTolene/pip-apps/pull/59
+- File minification and compression.
+
+1.1.0
+https://github.com/CodyTolene/pip-apps/pull/58
+- Swap knob mappings: Left knob now rotates shapes, right knob moves them left/right.
+- Add instant drop behavior on left knob press.
+- Fix bug: Moving shape too much/fast into a wall crashed the game.
+- Refactor to ES6 class (doesn't work with minification it seems, undone): Encapsulated all state and behavior inside a Piptris class function body.
+- Converted .forEach calls to for loops for better performance.
+- Debounce knob input: Prevented accidental multiple inputs due to hardware noise.
+
+1.0.0
+https://github.com/CodyTolene/pip-apps/pull/56
+- Add new app.
