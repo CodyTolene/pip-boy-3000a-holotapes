@@ -71,43 +71,116 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 
 3. Add a `ChangeLog` file to track changes and updates to your app or game.
 
-5. Add your app or game's code files to the folder. Example `app.js` file:
+4. Add your app or game's code files to the folder. Example Code:
 
+    <details>
+    <summary>Expand/Collapse</summary>
+    
     ```js
     (function () {
-      h.clear();
+      const APP_ID = "EXAMPLE";
+      const W = h.getWidth();
+      const H = h.getHeight();
 
-      const appId = 'APPID';
-      const intervalId = setInterval(tick, 1000);
+      let redrawInterval;
+      let removed = false;
+      let leftWheelPressWatch;
 
-      function tick() {
+      const state = {
+        lastInput: "NONE",
+        leftWheel: 0,
+        rightWheel: 0,
+        leftWheelPress: 0
+      };
+
+      function mark(input) {
+        state.lastInput = input;
+        if (Pip.playSound) Pip.playSound("TAB");
+        draw();
+      }
+
+      function draw() {
+        h.clear(1);
+
+        h.setColor(3)
+          .setFontMonofonto28()
+          .setFontAlign(0, 0)
+          .drawString(APP_ID, W / 2, 50);
+
+        h.setFontMonofonto18()
+          .drawString("LAST: " + state.lastInput, W / 2, 100);
+
+        h.setFontMonofonto16()
+          .setFontAlign(-1, -1);
+
+        h.drawString("LEFT SCROLL WHEEL: " + state.leftWheel, 80, 145);
+        h.drawString("RIGHT SCROLL WHEEL: " + state.rightWheel, 80, 175);
+        h.drawString("LEFT WHEEL PRESS: " + state.leftWheelPress, 80, 205);
+
+        h.flip();
+        Pip.lastFlip = getTime();
+      }
+
+      function onLeftWheel(dir) {
+        state.leftWheel += dir;
+        mark(dir < 0 ? "LEFT SCROLL WHEEL UP" : "LEFT SCROLL WHEEL DOWN");
+      }
+
+      function onRightWheel(dir) {
+        state.rightWheel += dir;
+        mark(dir < 0 ? "RIGHT SCROLL WHEEL UP" : "RIGHT SCROLL WHEEL DOWN");
+      }
+
+      function onLeftWheelPress() {
+        state.leftWheelPress++;
+        mark("LEFT SCROLL WHEEL PRESS");
+      }
+
+      function start() {
         h.clear();
-        h.setFontAlign(0, 0).drawString('Piptris', 160, 120);
+        Pip.audioStop();
+
+        Pip.onExclusive("knob1", onLeftWheel);
+        Pip.onExclusive("knob2", onRightWheel);
+
+        if (typeof ENC1_PRESS !== "undefined") {
+          leftWheelPressWatch = setWatch(onLeftWheelPress, ENC1_PRESS, {
+            repeat: true,
+            edge: "rising",
+            debounce: 50
+          });
+        }
+
+        draw();
+        redrawInterval = setInterval(draw, 1000);
       }
 
-      function onKnob1(direction) {
-        // Handle knob
+      function remove() {
+        if (removed) return;
+        removed = true;
+
+        if (redrawInterval) clearInterval(redrawInterval);
+        if (leftWheelPressWatch) clearWatch(leftWheelPressWatch);
+
+        Pip.removeListener("knob1", onLeftWheel);
+        Pip.removeListener("knob2", onRightWheel);
+
+        Pip.audioStop();
+        h.clear();
+        h.flip();
       }
 
-      Pip.onExclusive('knob1', onKnob1);
-
-      tick();
+      start();
 
       return {
-        id: appId,
+        id: APP_ID,
         notDefault: true,
         fullscreen: true,
-        remove: function () {
-          Pip.removeListener('knob1', onKnob1);
-          clearInterval(intervalId);
-          Pip.audioStop();
-          h.clear();
-        },
+        remove: remove
       };
     });
     ```
-
-<!--- TODO: Add more details) -->
+    </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -116,6 +189,27 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 <!---------------------------------------------------------------------------->
 
 ## Development Workflow <a name="development"></a>
+
+### Using Pip-Boy.com
+
+<details>
+<summary>Expand/Collapse</summary>
+
+1. Open the Pip-Boy 3000 Holotape Creator/Editor:
+
+    https://www.pip-boy.com/3000/holotapes/create
+
+2. Create a new Holotape and give it a name.
+
+3. Generate/edit/create your app or game's code in the built in editor.
+
+4. Download your files and add them to this repository.
+</details>
+
+### Using the Espruino Web IDE
+
+<details>
+<summary>Expand/Collapse</summary>
 
 1. Open the Espruino Web IDE
 
@@ -146,6 +240,7 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 8. Upload to the device for testing.
 
 > ![img-info][img-info] You can use a boot code file to boot straight into the app.
+</details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -154,6 +249,9 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 <!---------------------------------------------------------------------------->
 
 ## Images <a name="images"></a>
+
+<details>
+<summary>Expand/Collapse</summary>
 
 Image data:
 
@@ -171,6 +269,7 @@ Load image data:
 const sprites = eval(require('fs').readFileSync('HOLO/MYAPP/IMG.JS'));
 h.drawImage(sprites.nuke, 120, 80);
 ```
+</details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -179,6 +278,9 @@ h.drawImage(sprites.nuke, 120, 80);
 <!---------------------------------------------------------------------------->
 
 ## Input handling <a name="input"></a>
+
+<details>
+<summary>Expand/Collapse</summary>
 
 Use `Pip.onExclusive()` when an app needs exclusive control input handling:
 
@@ -196,6 +298,7 @@ Remove the listeners when the app exits:
 Pip.removeListener('knob1', onKnob1);
 Pip.removeListener('knob2', onKnob2);
 ```
+</details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -204,6 +307,9 @@ Pip.removeListener('knob2', onKnob2);
 <!---------------------------------------------------------------------------->
 
 ## Memory and Performance <a name="memory"></a> 
+
+<details>
+<summary>Expand/Collapse</summary>
 
 Main rules:
 
@@ -253,6 +359,7 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
 `this['\xFF']` to see timers, watches, internal runtime state. 
 
 `Pip.CURRENT` can hold the current page or app code.
+</details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -261,6 +368,9 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
 <!---------------------------------------------------------------------------->
 
 ## Contributing <a name="contributing"></a>
+
+<details>
+<summary>Expand/Collapse</summary>
 
 1.  Fork the repository:
 
@@ -314,6 +424,7 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
 8.  Create a pull request on GitHub to merge your changes into the main branch:
 
     https://github.com/CodyTolene/pip-boy-3000a-holotapes/pulls
+</details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 

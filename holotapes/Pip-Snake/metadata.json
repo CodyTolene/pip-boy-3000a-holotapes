@@ -1,0 +1,14 @@
+{
+  "id": "pipsnake",
+  "name": "Pip-Snake",
+  "author": "@CodyTolene",
+  "version": "2.0.0",
+  "description": "Guide your rad-snake to snacks while avoiding self-inflicted disaster. Good for low-risk simulation recommended by Vault-Tec for maintaining hand-eye coordination during extended shelter stays.",
+  "icon": "pipsnake.png",
+  "previews": ["pipsnake.mp4"],
+  "tags": "game",
+  "type": "app",
+  "readme": "README.md",
+  "storage": [{ "name": "HOLO/PIPSNAKE/APP.JS", "url": "app.js" }],
+  "storageOptional": []
+}
