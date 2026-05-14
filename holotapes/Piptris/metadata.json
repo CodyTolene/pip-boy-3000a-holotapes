@@ -9,10 +9,9 @@
   "type": "game",
   "readme": "README.md",
   "storage": [
-    { "name": "HOLO/PIPTRIS/APP.JS", "url": "app.js" },
+    { "name": "HOLO/PIPTRIS/APP.JS", "url": "app.min.js" },
     { "name": "HOLO/PIPTRIS/piptris.json", "url": "piptris.json" },
     { "name": "HOLO/PIPTRIS/block.json", "url": "block.json" },
-    { "name": "HOLO/PIPTRIS/gear.json", "url": "gear.json" },
     { "name": "HOLO/PIPTRIS/nuke.json", "url": "nuke.json" },
     { "name": "HOLO/PIPTRIS/radioactive.json", "url": "radioactive.json" }
   ],

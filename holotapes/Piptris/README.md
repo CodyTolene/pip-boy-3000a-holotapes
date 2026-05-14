@@ -18,11 +18,9 @@ stimpak breaks.
 
 ### Controls
 
-- Use the top-left knob to rotate pieces, press to drop piece instantly.
-- Use the top-right knob to move pieces left and right.
-- Use the front radio tuner button to move pieces faster.
-- Use the top-right torch button to toggle the screen brightness.
-- Use the bottom-right power button to exit the game.
+- Use the left knob to rotate pieces.
+- Hold the left knob to speed up the drop.
+- Use the right knob to move pieces left and right.
 
 ### Instructions
 
