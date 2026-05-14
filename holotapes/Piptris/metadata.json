@@ -6,8 +6,7 @@
   "description": "Stack, rotate, and clear falling blocks in this Tetris inspired mini-game. Simple, addictive, and perfect for idle moments between scavenging runs or stimpak breaks.",
   "icon": "piptris.png",
   "previews": ["piptris.mp4"],
-  "tags": "game",
-  "type": "app",
+  "type": "game",
   "readme": "README.md",
   "storage": [
     { "name": "HOLO/PIPTRIS/APP.JS", "url": "app.js" },

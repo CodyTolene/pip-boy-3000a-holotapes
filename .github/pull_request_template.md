@@ -13,11 +13,11 @@ Add your holotape addition/update description here.
 - Use `h` for graphics.
 - Avoid `var` and unnecessary globals.
 - Clean up everything in `remove()`:
-    - listeners
-    - timeouts
-    - intervals
-    - watches
-    - audio
+  - listeners
+  - timeouts
+  - intervals
+  - watches
+  - audio
 - Keep sprites and images small.
 - Test that the app can exit without rebooting.
 - Test opening and closing the app more than once.

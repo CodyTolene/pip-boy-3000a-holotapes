@@ -53,7 +53,7 @@ Pip-Boy 3000a Holotapes by the community, for the community.
 
 Install on: [pip-boy.com][link-pip-boy]
 
-Follow the guide below to create your own custom Holotapes for the Pip-Boy 
+Follow the guide below to create your own custom Holotapes for the Pip-Boy
 3000a!
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
@@ -73,114 +73,117 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 
 4. Add your app or game's code files to the folder. Example Code:
 
-    <details>
-    <summary>Expand/Collapse</summary>
-    
-    ```js
-    (function () {
-      const APP_ID = "EXAMPLE";
-      const W = h.getWidth();
-      const H = h.getHeight();
+   <details>
+   <summary>Expand/Collapse</summary>
 
-      let redrawInterval;
-      let removed = false;
-      let leftWheelPressWatch;
+   ```js
+   (function () {
+     const APP_ID = 'EXAMPLE';
+     const W = h.getWidth();
+     const H = h.getHeight();
 
-      const state = {
-        lastInput: "NONE",
-        leftWheel: 0,
-        rightWheel: 0,
-        leftWheelPress: 0
-      };
+     let redrawInterval;
+     let removed = false;
+     let leftWheelPressWatch;
 
-      function mark(input) {
-        state.lastInput = input;
-        if (Pip.playSound) Pip.playSound("TAB");
-        draw();
-      }
+     const state = {
+       lastInput: 'NONE',
+       leftWheel: 0,
+       rightWheel: 0,
+       leftWheelPress: 0,
+     };
 
-      function draw() {
-        h.clear(1);
+     function mark(input) {
+       state.lastInput = input;
+       if (Pip.playSound) Pip.playSound('TAB');
+       draw();
+     }
 
-        h.setColor(3)
-          .setFontMonofonto28()
-          .setFontAlign(0, 0)
-          .drawString(APP_ID, W / 2, 50);
+     function draw() {
+       h.clear(1);
 
-        h.setFontMonofonto18()
-          .drawString("LAST: " + state.lastInput, W / 2, 100);
+       h.setColor(3)
+         .setFontMonofonto28()
+         .setFontAlign(0, 0)
+         .drawString(APP_ID, W / 2, 50);
 
-        h.setFontMonofonto16()
-          .setFontAlign(-1, -1);
+       h.setFontMonofonto18().drawString(
+         'LAST: ' + state.lastInput,
+         W / 2,
+         100,
+       );
 
-        h.drawString("LEFT SCROLL WHEEL: " + state.leftWheel, 80, 145);
-        h.drawString("RIGHT SCROLL WHEEL: " + state.rightWheel, 80, 175);
-        h.drawString("LEFT WHEEL PRESS: " + state.leftWheelPress, 80, 205);
+       h.setFontMonofonto16().setFontAlign(-1, -1);
 
-        h.flip();
-        Pip.lastFlip = getTime();
-      }
+       h.drawString('LEFT SCROLL WHEEL: ' + state.leftWheel, 80, 145);
+       h.drawString('RIGHT SCROLL WHEEL: ' + state.rightWheel, 80, 175);
+       h.drawString('LEFT WHEEL PRESS: ' + state.leftWheelPress, 80, 205);
 
-      function onLeftWheel(dir) {
-        state.leftWheel += dir;
-        mark(dir < 0 ? "LEFT SCROLL WHEEL UP" : "LEFT SCROLL WHEEL DOWN");
-      }
+       h.flip();
+       Pip.lastFlip = getTime();
+     }
 
-      function onRightWheel(dir) {
-        state.rightWheel += dir;
-        mark(dir < 0 ? "RIGHT SCROLL WHEEL UP" : "RIGHT SCROLL WHEEL DOWN");
-      }
+     function onLeftWheel(dir) {
+       state.leftWheel += dir;
+       mark(dir < 0 ? 'LEFT SCROLL WHEEL UP' : 'LEFT SCROLL WHEEL DOWN');
+     }
 
-      function onLeftWheelPress() {
-        state.leftWheelPress++;
-        mark("LEFT SCROLL WHEEL PRESS");
-      }
+     function onRightWheel(dir) {
+       state.rightWheel += dir;
+       mark(dir < 0 ? 'RIGHT SCROLL WHEEL UP' : 'RIGHT SCROLL WHEEL DOWN');
+     }
 
-      function start() {
-        h.clear();
-        Pip.audioStop();
+     function onLeftWheelPress() {
+       state.leftWheelPress++;
+       mark('LEFT SCROLL WHEEL PRESS');
+     }
 
-        Pip.onExclusive("knob1", onLeftWheel);
-        Pip.onExclusive("knob2", onRightWheel);
+     function start() {
+       h.clear();
+       Pip.audioStop();
 
-        if (typeof ENC1_PRESS !== "undefined") {
-          leftWheelPressWatch = setWatch(onLeftWheelPress, ENC1_PRESS, {
-            repeat: true,
-            edge: "rising",
-            debounce: 50
-          });
-        }
+       Pip.onExclusive('knob1', onLeftWheel);
+       Pip.onExclusive('knob2', onRightWheel);
 
-        draw();
-        redrawInterval = setInterval(draw, 1000);
-      }
+       if (typeof ENC1_PRESS !== 'undefined') {
+         leftWheelPressWatch = setWatch(onLeftWheelPress, ENC1_PRESS, {
+           repeat: true,
+           edge: 'rising',
+           debounce: 50,
+         });
+       }
 
-      function remove() {
-        if (removed) return;
-        removed = true;
+       draw();
+       redrawInterval = setInterval(draw, 1000);
+     }
 
-        if (redrawInterval) clearInterval(redrawInterval);
-        if (leftWheelPressWatch) clearWatch(leftWheelPressWatch);
+     function remove() {
+       if (removed) return;
+       removed = true;
 
-        Pip.removeListener("knob1", onLeftWheel);
-        Pip.removeListener("knob2", onRightWheel);
+       if (redrawInterval) clearInterval(redrawInterval);
+       if (leftWheelPressWatch) clearWatch(leftWheelPressWatch);
 
-        Pip.audioStop();
-        h.clear();
-        h.flip();
-      }
+       Pip.removeListener('knob1', onLeftWheel);
+       Pip.removeListener('knob2', onRightWheel);
 
-      start();
+       Pip.audioStop();
+       h.clear();
+       h.flip();
+     }
 
-      return {
-        id: APP_ID,
-        notDefault: true,
-        fullscreen: true,
-        remove: remove
-      };
-    });
-    ```
-    </details>
+     start();
+
+     return {
+       id: APP_ID,
+       notDefault: true,
+       fullscreen: true,
+       remove: remove,
+     };
+   });
+   ```
+
+   </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -197,16 +200,20 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 
 1. Open the Pip-Boy 3000 Holotape Creator/Editor:
 
-    https://www.pip-boy.com/3000/holotapes/create
+   https://www.pip-boy.com/3000/holotapes/create
 
 2. Create a new Holotape and give it a name.
 
-3. Generate/edit/create your app or game's code in the built in editor.
+3. Generate/edit/create your Holotape's code in the built in editor.
 
-4. Download your files and add them to this repository.
+4. Test your Holotape on the device using the "Test on Device" button.
+
+5. Download your files and add them to this repository.
 </details>
 
 ### Using the Espruino Web IDE
+
+You can use one of the two methods below to upload and test your Holotape:
 
 <details>
 <summary>Expand/Collapse</summary>
@@ -225,21 +232,24 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 
 3. Open your file:
 
-    ![img-open-file](.github/images/screenshots/open-file.png)
+   ![img-open-file](.github/images/screenshots/open-file.png)
 
 4. Enable **Watch File**
 
-    ![img-watch-file](.github/images/screenshots/watch-file.png)
+   ![img-watch-file](.github/images/screenshots/watch-file.png)
 
 5. Edit the app in VS Code (or the web IDE's built in editor).
 
 6. Enable "Settings" > "Minification" > "Esprima: Mangle"
 
-7. Set "Settings" > "Minification" > "Pretokenise code before upload" to Yes/Always. 
+7. Set "Settings" > "Minification" > "Pretokenise code before upload" to
+   Yes/Always.
 
 8. Upload to the device for testing.
 
-> ![img-info][img-info] You can use a boot code file to boot straight into the app.
+> ![img-info][img-info] You can use a boot code file to boot straight into the
+> app.
+
 </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
@@ -260,7 +270,7 @@ Image data:
 ({
   block: atob('...'),
   nuke: atob('...'),
-})
+});
 ```
 
 Load image data:
@@ -269,6 +279,7 @@ Load image data:
 const sprites = eval(require('fs').readFileSync('HOLO/MYAPP/IMG.JS'));
 h.drawImage(sprites.nuke, 120, 80);
 ```
+
 </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
@@ -298,6 +309,7 @@ Remove the listeners when the app exits:
 Pip.removeListener('knob1', onKnob1);
 Pip.removeListener('knob2', onKnob2);
 ```
+
 </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
@@ -306,45 +318,46 @@ Pip.removeListener('knob2', onKnob2);
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 
-## Memory and Performance <a name="memory"></a> 
+## Memory and Performance <a name="memory"></a>
 
 <details>
 <summary>Expand/Collapse</summary>
 
 Main rules:
 
-  - keep the app scoped:
-    ```js
-    (function () {
-      // App code here
-      // ...
-      // Return this object
-      return {
-        id: 'APPID',
-        notDefault: true,
-        fullscreen: true,
-        remove: function () { ... },
-      };
-    });
-    ```
+- keep the app scoped:
 
-  - Clean up in `remove()`, ie:
-      ```js
-      remove: function () {
-        Pip.removeListener('knob1', onKnob1);
-        clearInterval(intervalId);
-        Pip.audioStop();
-        h.clear();
-      },
-      ```
+  ```js
+  (function () {
+    // App code here
+    // ...
+    // Return this object
+    return {
+      id: 'APPID',
+      notDefault: true,
+      fullscreen: true,
+      remove: function () { ... },
+    };
+  });
+  ```
+
+- Clean up in `remove()`, ie:
+  ```js
+  remove: function () {
+    Pip.removeListener('knob1', onKnob1);
+    clearInterval(intervalId);
+    Pip.audioStop();
+    h.clear();
+  },
+  ```
 
 Notes:
 
 - The 3000a has about `6500` Espruino variable blocks available to JavaScript.
-- Once an app is running, the OS uses around `1700`, leaving about `4600` for 
+- Once an app is running, the OS uses around `1700`, leaving about `4600` for
   the app.
 - For example, Atomic Command was mentioned as using around `3000`.
-- Avoid deleting OS globals or built in menus just to save memory. It may work, 
+- Avoid deleting OS globals or built in menus just to save memory. It may work,
   but it can also break returning to the Pip-Boy OS.
 
 Useful memory checks:
@@ -356,9 +369,10 @@ print(E.getSizeOf(Pip, 1).sort((a, b) => a.size - b.size));
 print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
 ```
 
-`this['\xFF']` to see timers, watches, internal runtime state. 
+`this['\xFF']` to see timers, watches, internal runtime state.
 
 `Pip.CURRENT` can hold the current page or app code.
+
 </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
@@ -377,9 +391,11 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
     https://github.com/CodyTolene/pip-boy-3000a-holotapes/fork
 
 2.  Clone your forked repository:
+
     ```sh
     git clone https://github.com/<my-username>/pip-boy-3000a-holotapes.git
     ```
+
     > ![Info][img-info] Replace `<my-username>` with your own GitHub username.
 
 3.  Create a new branch for your changes:
@@ -403,8 +419,7 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
     git push origin your-feature-branch
     ```
 
-7. Before opening a pull request, give your Holotape one last cleanup pass:
-
+7.  Before opening a pull request, give your Holotape one last cleanup pass:
     - Wrap the app in a function expression.
     - Return an object with `id` and `remove`.
     - Use `h` for graphics.
@@ -423,8 +438,9 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
 
 8.  Create a pull request on GitHub to merge your changes into the main branch:
 
-    https://github.com/CodyTolene/pip-boy-3000a-holotapes/pulls
-</details>
+        https://github.com/CodyTolene/pip-boy-3000a-holotapes/pulls
+
+    </details>
 
 <p align="right">[ <a href="#index">Index</a> ]</p>
 
@@ -436,9 +452,9 @@ print(E.getSizeOf(this['\xFF'], 1).sort((a, b) => a.size - b.size));
 
 This project is licensed under the MIT License.
 
-Some projects in this repository may have their own licenses. Check each
-app or game's individual files and README for license terms that apply to that
-specific project.
+Some projects in this repository may have their own licenses. Check each app or
+game's individual files and README for license terms that apply to that specific
+project.
 
 See the [LICENSE-MIT](LICENSE-MIT) file for more details.
 
