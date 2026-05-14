@@ -1,23 +1,5 @@
 [
   {
-    "id": "pipsnake",
-    "name": "Pip-Snake",
-    "author": "@CodyTolene",
-    "version": "2.0.0",
-    "description": "Guide your rad-snake to snacks while avoiding self-inflicted disaster. Good for low-risk simulation recommended by Vault-Tec for maintaining hand-eye coordination during extended shelter stays.",
-    "icon": "Pip-Snake/pipsnake.png",
-    "previews": ["Pip-Snake/pipsnake.mp4"],
-    "type": "game",
-    "readme": "Pip-Snake/README.md",
-    "storage": [
-      {
-        "name": "HOLO/PIPSNAKE/APP.JS",
-        "url": "Pip-Snake/app.js"
-      }
-    ],
-    "storageOptional": []
-  },
-  {
     "id": "piptris",
     "name": "Piptris",
     "author": "@CodyTolene",
@@ -30,7 +12,7 @@
     "storage": [
       {
         "name": "HOLO/PIPTRIS/APP.JS",
-        "url": "Piptris/app.js"
+        "url": "Piptris/app.min.js"
       },
       {
         "name": "HOLO/PIPTRIS/piptris.json",
@@ -39,10 +21,6 @@
       {
         "name": "HOLO/PIPTRIS/block.json",
         "url": "Piptris/block.json"
-      },
-      {
-        "name": "HOLO/PIPTRIS/gear.json",
-        "url": "Piptris/gear.json"
       },
       {
         "name": "HOLO/PIPTRIS/nuke.json",

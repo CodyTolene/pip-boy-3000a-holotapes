@@ -206,7 +206,10 @@ Follow the guide below to create your own custom Holotapes for the Pip-Boy
 
 3. Generate/edit/create your Holotape's code in the built in editor.
 
-4. Test your Holotape on the device using the "Test on Device" button.
+4. Test your Holotape on the device using the "Save & Test" button.
+
+   > ![img-info][img-info] You can minify your code using the "Encode" button
+   > prior to testing.
 
 5. Download your files and add them to this repository.
 </details>
