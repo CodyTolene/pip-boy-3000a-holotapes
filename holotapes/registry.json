@@ -1,0 +1,83 @@
+[
+  {
+    "id": "pipsnake",
+    "name": "Pip-Snake",
+    "author": "@CodyTolene",
+    "version": "2.0.0",
+    "description": "Guide your rad-snake to snacks while avoiding self-inflicted disaster. Good for low-risk simulation recommended by Vault-Tec for maintaining hand-eye coordination during extended shelter stays.",
+    "icon": "Pip-Snake/pipsnake.png",
+    "previews": ["Pip-Snake/pipsnake.mp4"],
+    "type": "game",
+    "readme": "Pip-Snake/README.md",
+    "storage": [
+      {
+        "name": "HOLO/PIPSNAKE/APP.JS",
+        "url": "Pip-Snake/app.js"
+      }
+    ],
+    "storageOptional": []
+  },
+  {
+    "id": "piptris",
+    "name": "Piptris",
+    "author": "@CodyTolene",
+    "version": "4.0.0",
+    "description": "Stack, rotate, and clear falling blocks in this Tetris inspired mini-game. Simple, addictive, and perfect for idle moments between scavenging runs or stimpak breaks.",
+    "icon": "Piptris/piptris.png",
+    "previews": ["Piptris/piptris.mp4"],
+    "type": "game",
+    "readme": "Piptris/README.md",
+    "storage": [
+      {
+        "name": "HOLO/PIPTRIS/APP.JS",
+        "url": "Piptris/app.js"
+      },
+      {
+        "name": "HOLO/PIPTRIS/piptris.json",
+        "url": "Piptris/piptris.json"
+      },
+      {
+        "name": "HOLO/PIPTRIS/block.json",
+        "url": "Piptris/block.json"
+      },
+      {
+        "name": "HOLO/PIPTRIS/gear.json",
+        "url": "Piptris/gear.json"
+      },
+      {
+        "name": "HOLO/PIPTRIS/nuke.json",
+        "url": "Piptris/nuke.json"
+      },
+      {
+        "name": "HOLO/PIPTRIS/radioactive.json",
+        "url": "Piptris/radioactive.json"
+      }
+    ],
+    "storageOptional": [
+      {
+        "label": "Big Band Swing (Music)",
+        "name": "HOLO/PIPTRIS/piptris-big-band-swing.wav",
+        "sizeKB": 826,
+        "url": "Piptris/optional/piptris-big-band-swing.wav"
+      },
+      {
+        "label": "Electro Swing (Music)",
+        "name": "HOLO/PIPTRIS/piptris-electro-swing.wav",
+        "sizeKB": 1150,
+        "url": "Piptris/optional/piptris-electro-swing.wav"
+      },
+      {
+        "label": "Symphony (Music)",
+        "name": "HOLO/PIPTRIS/piptris-symphony.wav",
+        "sizeKB": 1614,
+        "url": "Piptris/optional/piptris-symphony.wav"
+      },
+      {
+        "label": "Whimsical (Music)",
+        "name": "HOLO/PIPTRIS/piptris-whimsical.wav",
+        "sizeKB": 1635,
+        "url": "Piptris/optional/piptris-whimsical.wav"
+      }
+    ]
+  }
+]

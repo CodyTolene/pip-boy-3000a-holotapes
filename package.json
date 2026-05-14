@@ -1,0 +1,16 @@
+{
+  "name": "pip-boy-3000a-holotapes",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node --experimental-strip-types .scripts/build.ts",
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1"
+  }
+}
